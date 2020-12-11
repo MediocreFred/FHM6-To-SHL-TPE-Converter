@@ -26,7 +26,6 @@ class Player:
                            'Reflexes': raw_data[49]}
         self.attributes['Position'] = self.get_position()
         self.attributes['TPE'] = self.calculate_tpe()
-        # print(raw_data[62])
 
     def calculate_tpe(self):
         tpe_total = 0
@@ -39,7 +38,6 @@ class Player:
             value = self.attributes[attribute]
             if isinstance(value, int) and attribute not in no_count:
                 current_level = 0
-                print(attribute, value)
                 while value > 17:
                     value -= 1
                     current_level += 1
@@ -74,8 +72,6 @@ class Player:
                     value -= 1
                     current_level += 1
                 tpe_total += (current_level * 1)
-                current_level = 0
-                print(tpe_total)
         return tpe_total
 
     def get_position(self):
@@ -99,9 +95,9 @@ class Player:
 
 def main():
     mydb = mysql.connector.connect(
-        host="192.168.10.53",
-        user="ckalinowski",
-        passwd="Windforce",
+        host="localhost",
+        user="user",
+        passwd="password",
         database="fhm6"
     )
 
@@ -137,7 +133,4 @@ def main():
         writer.writeheader()
         for data in player_list:
             writer.writerow(data)
-    print(count)
-
-
-main()
+    print("Processed", count, "players.")
